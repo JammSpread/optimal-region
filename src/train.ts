@@ -1,4 +1,5 @@
 import * as tf from "@tensorflow/tfjs"
+import * as path from "path"
 import "@tensorflow/tfjs-node"
 import * as data from "./data.json"
 
@@ -114,4 +115,5 @@ model.fit(trainingInput, trainingOutput, { epochs: 100 }).then(async (history) =
     serverNameArray.push(unsplitServer.substr(2, unsplitServer.length - 2))
   }
   console.log(serverNameArray.join(" "))
+  model.save(`file://${path.join(__dirname, "../model")}`)
 })
