@@ -1,7 +1,12 @@
 [
     {
         "day": 0,
-        "hour": 4,
+        "hour": 17,
         "region": "USWest2"
+    },
+    {
+        "day": 3,
+        "hour": 4,
+        "region": "EUWest"
     }
 ]

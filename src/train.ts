@@ -27,10 +27,6 @@ enum regions {
   EUSoutheast = 14
 }
 
-function containsNumber(str: string) {
-  return /\d/.test(str)
-}
-
 /* Process data */
 
 const trainingData: ITrainingData[] = data.map(value => {
@@ -67,18 +63,18 @@ const model = tf.sequential()
 
 model.add(tf.layers.dense({
   inputShape: [2],
-  activation: "sigmoid",
+  activation: "relu",
   units: 5,
 }))
 
 model.add(tf.layers.dense({
   inputShape: [5],
-  activation: "sigmoid",
+  activation: "relu",
   units: 1,
 }))
 
 model.add(tf.layers.dense({
-  activation: "sigmoid",
+  activation: "relu",
   units: 15,
 }))
 
@@ -90,30 +86,5 @@ model.compile({
 /* Train */
 
 model.fit(trainingInput, trainingOutput, { epochs: 100 }).then(async (history) => {
-  const date = new Date()
-  const test = tf.tensor2d([[date.getDay(), date.getHours()]])
-  const res = await (model.predict(test) as tf.Tensor<tf.Rank>).data()
-
-  /* Get the highest probability index */
-  let maxIndex: number = 0
-  Array.from(res).map((value, index) => {
-    if (value > res[maxIndex]) {
-      maxIndex = index
-    }
-  })
-
-  /* Format Answer */
-  const unsplitServer = regions[maxIndex]
-  const serverNameArray: string[] = []
-  serverNameArray.push(unsplitServer.substr(0, 2))
-  unsplitServer.slice(2, -1)
-  if (containsNumber(unsplitServer)) {
-    serverNameArray.push(unsplitServer.substr(2, unsplitServer.length - 3))
-    serverNameArray.push(unsplitServer.substr(-1, 1))
-  }
-  else {
-    serverNameArray.push(unsplitServer.substr(2, unsplitServer.length - 2))
-  }
-  console.log(serverNameArray.join(" "))
-  model.save(`file://${path.join(__dirname, "../model")}`)
+  model.save(`file://${path.join(__dirname, "../")}`)
 })
