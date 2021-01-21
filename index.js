@@ -1,5 +1,5 @@
 const date = new Date()
-const modelPath = `${location.href.substr(0, location.href.length - 1) + location.pathname}model.json`
+const modelPath = `${location.href}model.json`
 const regions = [
     "USWest2",
     "USNorthwest",
