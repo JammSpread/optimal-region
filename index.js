@@ -1,5 +1,3 @@
-const date = new Date()
-const modelPath = `${location.href}model.json`
 const regions = [
     "USWest2",
     "USNorthwest",
@@ -23,7 +21,13 @@ function containsNumber(str) {
 }
 
 async function ready() {
+    await predict()
+}
+
+async function predict() {
+    const modelPath = `${location.href}model.json`
     const model = await tf.loadLayersModel(modelPath)
+    const date = new Date()
     const result = await model.predict(tf.tensor2d([[date.getDay(), date.getHours()]])).data()
     const h3 = document.querySelector("result")
 
