@@ -25,7 +25,10 @@ async function ready() {
 }
 
 async function predict() {
-    const modelPath = `${location.href}model.json`
+    const url = location.href
+    const basePath = location.pathname.search(".html") === -1 ? url
+        : url.substr(0, url.lastIndexOf('/') + 1)
+    const modelPath = `${basePath}model.json`
     const model = await tf.loadLayersModel(modelPath)
     const date = new Date()
     const result = await model.predict(tf.tensor2d([[date.getDay(), date.getHours()]])).data()
