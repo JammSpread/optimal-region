@@ -46,14 +46,14 @@ async function predict() {
     const unsplitServer = regions[maxIndex]
     const serverNameArray = []
     serverNameArray.push(unsplitServer.substr(0, 2))
-    unsplitServer.slice(2, -1)
 
+    const len = unsplitServer.length
     if (containsNumber(unsplitServer)) {
-        serverNameArray.push(unsplitServer.substr(2, unsplitServer.length - 3))
+        serverNameArray.push(unsplitServer.substr(2, len - 3))
         serverNameArray.push(unsplitServer.substr(-1, 1))
     }
     else {
-        serverNameArray.push(unsplitServer.substr(2, unsplitServer.length - 2))
+        serverNameArray.push(unsplitServer.substr(2, len - 2))
     }
     
     h3.innerText = h3.innerText.replace("Processing...", serverNameArray.join(" "))
