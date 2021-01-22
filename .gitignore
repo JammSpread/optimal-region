@@ -1,5 +1,8 @@
 node_modules
 
 # TS
-dist
 tsconfig.tsbuildinfo
+
+# Dist
+dist/**/*.d.ts
+dist/model
