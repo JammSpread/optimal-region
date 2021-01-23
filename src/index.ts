@@ -1,3 +1,5 @@
+// import * as tf from "@tensorflow/tfjs"
+
 const regions = [
     "USWest2",
     "USNorthwest",
@@ -16,7 +18,7 @@ const regions = [
     "EUSoutheast"
 ]
 
-function containsNumber(str) {
+function containsNumber(str: string) {
     return /\d/.test(str)
 }
 
@@ -29,22 +31,24 @@ async function predict() {
     const basePath = location.pathname.search(".html") === -1 ? url
         : url.substr(0, url.lastIndexOf('/') + 1)
     const modelPath = `${basePath}dist/model.json`
+    // @ts-ignore
     const model = await tf.loadLayersModel(modelPath)
     const date = new Date()
-    const result = await model.predict(tf.tensor2d([[date.getDay(), date.getHours()]])).data()
-    const h3 = document.querySelector("result")
+    // @ts-ignore
+    const result = await (await model.predict(tf.tensor2d([[date.getDay(), date.getHours()]])) as tf.Tensor<tf.Rank>).data()
+    const h3 = document.querySelector("result") as HTMLHeadingElement
 
     /* Get the highest probability index */
     let maxIndex = 0
-    Array.from(result).map((value, index) => {
-        if (value > result[maxIndex]) {
+    Array(result).map((value : unknown, index) => {
+        if (value as number > result[maxIndex]) {
             maxIndex = index
         }
     })
 
     /* Format Answer */
     const unsplitServer = regions[maxIndex]
-    const serverNameArray = []
+    const serverNameArray: string[] = []
     serverNameArray.push(unsplitServer.substr(0, 2))
 
     const len = unsplitServer.length

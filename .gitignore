@@ -3,6 +3,9 @@ node_modules
 # TS
 tsconfig.tsbuildinfo
 
+# Yarn
+yarn-error.log
+
 # Dist
 dist/**/*.d.ts
 dist/model

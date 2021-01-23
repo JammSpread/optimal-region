@@ -81,12 +81,13 @@ function predict() {
                 case 1:
                     model = _a.sent();
                     date = new Date();
-                    return [4, model.predict(tf.tensor2d([[date.getDay(), date.getHours()]])).data()];
-                case 2:
+                    return [4, model.predict(tf.tensor2d([[date.getDay(), date.getHours()]]))];
+                case 2: return [4, (_a.sent()).data()];
+                case 3:
                     result = _a.sent();
                     h3 = document.querySelector("result");
                     maxIndex = 0;
-                    Array.from(result).map(function (value, index) {
+                    Array(result).map(function (value, index) {
                         if (value > result[maxIndex]) {
                             maxIndex = index;
                         }
